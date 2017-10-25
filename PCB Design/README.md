@@ -14,7 +14,8 @@ The difference in space betwen the headers on each side of the board is 0.6 inch
 The pattern for the TSSOP_20 was compared to the pattern at the end of the MSP430FR2311 datasheet to ensure the IC would fit. 
 
 ## Bill of Materials
-RefDes	Value	Name				Part	Manufacturer	Quantity
+|RefDes|	|Value|	|Name|				|Part|	|Manufacturer|	|Quantity|
+|---|		|---|	|---|				|---|	|---|			|---|
 C4		100nF	CAP_0805			Part 1						1
 C5		10uF	CAP_0805			Part 1						1
 C6		1nF		CAP_0805			Part 1						1
