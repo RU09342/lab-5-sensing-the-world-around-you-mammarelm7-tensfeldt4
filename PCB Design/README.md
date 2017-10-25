@@ -15,10 +15,15 @@ The pattern for the TSSOP_20 was compared to the pattern at the end of the MSP43
 
 ## Bill of Materials
 
+| RefDes | Value    | Name                  | Quantity  |
+| ------ |:--------:|:---------------------:|:---------:|
+| C4     | 100nF    | CAP_0805              | 1         |
+| C5     | 10uF     | CAP_0805              | 1         |
+| C6     | 1nF      | CAP_0805              | 1         |
+| J3     |          | 1-644456-0            | 1         |
+| J4     |          | 1-644456-0            | 1         |
+| R2     | 47k      | RES_0805              | 1         |
+| U2     |          | MSP4302311IPW16R      | 1         |
 
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+
