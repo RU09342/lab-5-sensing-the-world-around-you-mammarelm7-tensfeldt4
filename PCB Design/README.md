@@ -1,22 +1,24 @@
-# PCB Design
-Since we are getting closer to building realistic systems in your final projects, you will most likely need to build a PCB so that you are not worrying about carrying around a rat's nest of wires. Really, the basics of PCB design are quite simple: make a schematic to lay out what components need to be connected to each other, then import the schematic to a PCB designer and physically connect the components together. Where the difficulty comes in is in the tedium. For low-frequency, low power applications, you should be able to get away with pretty much anything you do. 
+# PCB 
+We designed the schematic and pcb design for a MSP430FR2311IPW16R to run independently on a pcb connected with headers on a breadboard.
 
-As the semester progresses we will be dealing with more applications which will require you to build boards with higher signal integrity and power carrying capabilities, but we will cross that bridge when we get to it.
+## PCB Schematic
+For the schematic, bypass and bulk capacitors were added between VSS and VCC.
+The 100nF bypass capacitor will send low level AC noise to ground.
+The 10uF bulk capacitor will regulate the voltage provided to the processor so that when it dips, the capacitor will discharge and level the voltage.
+Reset circuitry was also added to this schematic. The reset circuitry consists of a 1nf capacitor going to ground to ensure debouncing and a 47k resistor used as a pull up resistor. A TSSOP_20 was chosen to model the msp since it has 10 pins on each side. 
 
-## Task
-You will be required to design a simple breakout board for the MSP430FR2311. This is one of the simplest processors you have to design for, requiring you to only place a few capacitors to get it to work. You might think wait, but isn't there all that stuff up at the top of the board? Don't we need to also include that? All of those parts are part of the programmer/debugger and it is very easy to program your chip using just a few wires.
+## PCB Design
+The board was modeled as 2 sided with an internal ground plane and has the dimensions of .8 inches by 1.45 inches in height. 
+All traces were modeled at 13 mil thickness which is within PCBWAY limitations.
+The difference in space betwen the headers on each side of the board is 0.6 inches so that the board will fit on a breadboard across the center line.
+The pattern for the TSSOP_20 was compared to the pattern at the end of the MSP430FR2311 datasheet to ensure the IC would fit. 
 
-## Deliverables 
-This folder should contain the following files:
-* BOARD.sch
-* BOARD.pcb
-* GERBERS (Folder)
-
-The GERBERS folder should contain the Gerber files as listed in the ECE Department ordering guides for PCBs.
-
-The README for this folder should also contain the Bill of Materials as well as (if possible) a link to a Digikey/Mouser cart that contains the parts you would want for this board.
-
-## Board Details
-Your board should be a 2 layer board which can conveniently fit on a breadboard and contains the required passives for this processor to work in a standalone implementation. This means that the board should contain bypass capacitors, and the proper reset circuitry as laid out in the MSP430FR2311 datasheet. As per PCBWAY manufacturing restrictions, you should not have any traces smaller than 6mil, and your board should be smaller than 4 inches per side (which is maybe 4 times larger than your board should be.)
-
-It will be up to you to determine the capacitor brands, values, and sizes, as well as which package you want for your MSP430FR2311.
+## Bill of Materials
+RefDes	Value	Name				Part	Manufacturer	Quantity
+C4		100nF	CAP_0805			Part 1						1
+C5		10uF	CAP_0805			Part 1						1
+C6		1nF		CAP_0805			Part 1						1
+J3				1-644456-0			Part 1	TE Connectivity		1
+J4				1-644456-0			Part 1	TE Connectivity		1
+R2		47k		RES_0805			Part 1						1
+U2				MSP4302311IPW16R	Part 1						1
