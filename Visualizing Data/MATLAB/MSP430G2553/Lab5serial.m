@@ -31,7 +31,7 @@ veri=fscanf(p,'%u'); %gets UART sensor information
 figure %creates figure
 xlabel('Count')
 ylabel('Sense Change')
-title('Count vs. Sense')
+title('Photoresistor Count vs. Sense')
 grid on;
 hold on;
 
