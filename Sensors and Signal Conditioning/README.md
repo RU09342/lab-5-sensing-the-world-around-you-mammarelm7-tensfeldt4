@@ -127,21 +127,49 @@ void __attribute__ ((interrupt(USCIAB0RX_VECTOR))) USCI0RX_ISR (void)
 
 ## Breadboard
 ![alt text](images/breadboard.JPG "breadboard")
+Left:Phototransistor Circuit, Middle:Photodiode Circuit, Right: Photoresistor Circuit
 
 ## Photoresistor Circuit
 ![alt text](images/photoresistor.png "Photoresistor")
+This circuit is just the photoresistor and a current limiting 1k resistor.
+This sensor works fine without any amplification.
 
 ## Photoresistor Serial
 ![alt text](images/photoresistorSerial.png "PhotoresistorSerial")
+This is the serial as a flashlight is moved closer and farther away from the sensor.
+94 is the ambient without a light and increases when the flashlight is pointed on it.
+It decreases when the light is reduced.
 
 ## Photodiode Circuit
 ![alt text](images/photodiode.png "Photodiode")
+This circuit requires an inverting op amp with negative feedback in order to work.
+The gain of the circuit is directly proportional to the feedback resistor R4 and is characterized by the 
+function Vo/Vin = -Rf/Rin where Rin is represented by the 0.7 voltage drop across the photodiode.
+The larger the value of the feedback resistor, the larger the gain for this circuit. This being true,
+it was found that any value over 300k created enough amplification for this device.
 
 ## Photodiode Serial
 ![alt text](images/photodiodeSerial.png "PhotodiodeSerial")
+This is the serial as a flashlight is moved closer and farther away from the sensor. 
+This sensor is different from the photoresistor as it is more directional and represents ambient light as 0.
+As the flashlight gets closer, the value increases up to 22.
 
 ## Phototransistor Circuit
 ![alt text](images/phototransistor.png "Phototransistor")
+This circuit consists of a phototransistor with a 2k current limiting resistor hooked up from the emitter to ground,
+since it is a NPN device. The base is controlled by the amount of light that is sensed. Once it 
+reaches a threshold, current will flow from the collector to the emitter. This circuit requires 
+amplification in order to sense properly. The collector is connected to an op amp 
+that is configured as a buffer. A buffer converts a high input impedance to a low output
+impedance in order to prevent loads from affecting the gain of the circuit.
+The output of this buffer is connected to an inverting op amp that has a 100nF capacitor
+in parallel with the feedback resistor in order to cut out high frequencies as a form of debouncing.
+The gain of this circuit is characterized as Vo/Vin = -Rf/Rin. A gain of 10 was chosen by choosing
+Rf to be 100k and Rin to be 10k. Since you are technically inverting the signal here, you should have a third
+stage that inverts the signal back. However, this third stage did not work in practice so this two stage circuit was used instead. 
 
 ## Phototransistor Serial
 ![alt text](images/phototransistorSerial.png "PhototransistorSerial")
+This is the serial as a flashlight is moved closer and farther away from the sensor. 
+This sensor is different from the photoresistor as it is more directional and represents ambient light as 0.
+As the flashlight gets closer, the value increases up to 22.
