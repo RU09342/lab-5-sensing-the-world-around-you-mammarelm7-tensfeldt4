@@ -99,10 +99,10 @@ void __attribute__ ((interrupt(ADC12_VECTOR))) ADC12_ISR (void)
 ```
 
 ### MSP430F5529 RGB Red Dim
-![alt text](MSP430F5529/rgb_dim.JPG "RedDim")
+![alt text](RGB/MSP430F5529/rgb_dim.JPG "RedDim")
 
 ### MSP430F5529 RGB Red Bright
-![alt text](MSP430F5529/rgb_bright.JPG "RedBright")
+![alt text](RGB/MSP430F5529/rgb_bright.JPG "RedBright")
 
 ### MSP430FR2311 Code
 
@@ -216,10 +216,10 @@ void __attribute__ ((interrupt(ADC_VECTOR))) ADC_ISR (void)
 ```
 
 ### MSP430FR2311 RGB Red Dim
-![alt text](MSP430FR2311/rgb_dim.JPG "RedDim")
+![alt text](RGB/MSP430FR2311/rgb_dim.JPG "RedDim")
 
 ### MSP430FR2311 RGB Red Bright
-![alt text](MSP430FR2311/rgb_bright.JPG "RedBright")
+![alt text](RGB/MSP430FR2311/rgb_bright.JPG "RedBright")
 
 ### MSP430FR5994 Code
 
@@ -366,10 +366,10 @@ void __attribute__ ((interrupt(ADC12_B_VECTOR))) ADC12_ISR (void)
 
 
 ### MSP430FR5994 RGB Red Dim
-![alt text](MSP430FR5994/red_dim.JPG "RedDim")
+![alt text](RGB/MSP430FR5994/red_dim.JPG "RedDim")
 
 ### MSP430FR5994 RGB Red Bright
-![alt text](MSP430FR5994/red_bright.jpg "RedBright")
+![alt text](RGB/MSP430FR5994/red_bright.jpg "RedBright")
 
 
 
