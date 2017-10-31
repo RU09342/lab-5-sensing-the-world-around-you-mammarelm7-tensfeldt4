@@ -1,6 +1,7 @@
 # Sensors and Signal Conditioning
 The photoresistor, photodiode, and phototransistor are devices that sense light and generate an analog resistance or volage because of it.
-This analog signal is converted to a digital signal using the analog to digital converter (ADC) in the MSP430G2553.
+Each of these sensors need certain circuits to work which are described below.
+The analog signal is converted to a digital signal using the analog to digital converter (ADC) in the MSP430G2553.
 This data is then transmitted over 9600 baud uart whenever the character 'A' is sent to the MSP430 and viewed in Realterm. 
 
 ## MSP430G2553 code
