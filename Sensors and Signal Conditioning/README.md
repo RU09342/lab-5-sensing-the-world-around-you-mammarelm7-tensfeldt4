@@ -1,25 +1,147 @@
 # Sensors and Signal Conditioning
 One of the biggest limitations of the microcontroller is the fact that it lives in a digital world. We need certain components to be able to translate the analog world to the digital world and vice-versa. In this lab, we need to be able to convert some electrical phenomena into something our microcontroller can understand. For this, we need a few building blocks to do this.
 
-## Sensors
-Sensors in a nutshell convert a physical phenomena into an electrical phenomena. For example, and accelerometer converts an acceleration into a change in capacitance (in the case of some MEMS devices). This electrical phenomena does not have to be a voltage, and as such, we need to be able to convert our sensor output to a voltage. From there, we can read in this voltage through our Analog to Digital Converter (ADC).
+## MSP430G2553 code
+```c
+/*
+Matt Mammarelli
+9/18/17
+ECE 09342-2
+*/
 
-## Signal Conditioning
-The signal conditioning chain can be broken up into a few main building blocks. In the beginning you have your sensor which converts something into the electrical world. We then need a block which can convert that resultant electrical phenomena into a voltage. From here, this voltage may be too small/large for our microcontroller, so we need to amplify the signal. From there, we may need to de-noise the signal by filtering. After all of this, we might be at a point where we are ready to read the signal into our processor.
+//MSP430G2553 Sensors and Signal Conditioning
+//Type A in serial to print current value of sensor
 
-## Task
-For this part of the lab, you need to focus on two main aspects: utilizing and reading the ADC, and conditioning a sensor to provide you with a decent output. To do this, you will need to build the proper circuitry to take a measurement from sensors which convert a physical phenomena into:
-* Voltage
-* Current
-* Resistance
+#include  "msp430g2253.h"
 
-## Deliverables
+unsigned int ADC_value=0;
 
-### Code
-Your code for this section should focus heavily on the ADC and being able to pull data from it. Your code need to communicate back to your computer using UART at 9600 Baud and send the ADC contents at 1 reading per second to start. This really is meant for you to see whether or not your signal conditioning is actually working and you can see changes in your sensor reading. This code should be very very similar to code you have written before and should be simple to port between your processors.
+void initAdc(void);
 
-### Hardware
-The hardware portion should be the same for each of the processors. You will need to have a total of 3 circuits made, each corresponding to a different sensor. You need to look at the range of measurements and the amount of resolution you can get out of your ADC and determine how to convert, scale, and filter your signal. Don't forget the fact that you will need to convert to a voltage, making some of these circuits not so trivial. The main goal as the hardware designer for these sensors is to provide the microprocessor with the best resolution to maximize the effectiveness of the ADC.
+void main(void)
+{
+    {
+        // Stop WDT
+        WDTCTL = WDTPW + WDTHOLD;
 
-### README
-The README for this part of the lab should talk briefly about how the ADC code works, but focus way more on the hardware aspect. You need to include schematics of your circuits, and well as supporting simulation/calculations which show that your circuits should work. You should talk about what types of circuits you are using and how they actually work.
+        // If calibration constant erased
+        if (CALBC1_1MHZ==0xFF)
+        {
+            // do not load
+                 while(1);
+         }
+        // Select lowest DCOx and MODx settings
+        DCOCTL = 0;
+        // Set range   DCOCTL = CALDCO_1MHZ;
+        BCSCTL1 = CALBC1_1MHZ;
+        DCOCTL = CALDCO_1MHZ;
+        // P1.1 = RXD, P1.2=TXD
+        P1SEL = BIT1 + BIT2 ;
+        // P1.1 = RXD, P1.2=TXD
+        P1SEL2 = BIT1 + BIT2 ;
+        // SMCLK
+        UCA0CTL1 |= UCSSEL_2;
+        // 1MHz 9600
+        UCA0BR0 = 104;
+        // 1MHz 9600
+        UCA0BR1 = 0;
+        // Modulation UCBRSx = 1
+        UCA0MCTL = UCBRS0;
+        // **Initialize USCI state machine**
+        UCA0CTL1 &= ~UCSWRST;
+        // Enable USCI_A0 RX interrupt
+        IE2 |= UCA0RXIE;
+
+
+        // SMCLK = DCO = 1MHz
+        BCSCTL2 &= ~(DIVS_3);
+        // ADC input pin P1.3
+        P1SEL |= BIT3;
+        // ADC set-up function call
+        initAdc();
+        // Enable interrupts.
+        __enable_interrupt();
+
+        while(1)
+        {
+            // Wait for ADC Ref to settle
+            __delay_cycles(1000);
+            // Sampling and conversion start
+            ADC10CTL0 |= ENC + ADC10SC;
+            // Low Power Mode 0 with interrupts enabled
+            __bis_SR_register(CPUOFF + GIE);
+            //set adc value
+            ADC_value = ADC10MEM;
+
+        }
+
+    }
+}
+
+//ADC10 interrupt
+#pragma vector=ADC10_VECTOR
+__interrupt void ADC10_ISR (void)
+{
+    // Return to active mode
+    __bic_SR_register_on_exit(CPUOFF);
+}
+
+//ADC set-up
+void initAdc(void)
+{
+
+    // Channel 3, ADC10CLK/3
+    ADC10CTL1 = INCH_3 + ADC10DIV_3 ;
+    //Vcc and Vss reference, Sample and hold for 64 Clock cycles, ADC on, ADC interrupt enable
+    ADC10CTL0 = SREF_0 + ADC10SHT_3 + ADC10ON + ADC10IE;
+    // ADC input enable P1.3
+    ADC10AE0 |= BIT3;
+}
+
+
+//UART
+//  Echo back RXed character, confirm TX buffer is ready first
+#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
+#pragma vector=USCIAB0RX_VECTOR
+__interrupt void USCI0RX_ISR(void)
+#elif defined(__GNUC__)
+void __attribute__ ((interrupt(USCIAB0RX_VECTOR))) USCI0RX_ISR (void)
+#else
+#error Compiler not supported!
+#endif
+{
+  // USCI_A0 TX buffer ready?
+  while (!(IFG2&UCA0TXIFG));
+
+  //if input is A print out the ADC
+  if(UCA0RXBUF == 65){
+      UCA0TXBUF = ADC10MEM; //skips a clockcycle of setting adc_value
+  }
+  //else print out 66 
+  else{
+      UCA0TXBUF = 66;
+  }
+
+}
+```
+
+## Breadboard
+![alt text](images/breadboard.JPG "breadboard")
+
+## Photoresistor Circuit
+![alt text](images/photoresistor.png "Photoresistor")
+
+## Photoresistor Serial
+![alt text](images/photoresistorSerial.png "PhotoresistorSerial")
+
+## Photodiode Circuit
+![alt text](images/photodiode.png "Photodiode")
+
+## Photodiode Serial
+![alt text](images/photodiodeSerial.png "PhotodiodeSerial")
+
+## Phototransistor Circuit
+![alt text](images/phototransistor.png "Phototransistor")
+
+## Phototransistor Serial
+![alt text](images/phototransistorSerial.png "PhototransistorSerial")
