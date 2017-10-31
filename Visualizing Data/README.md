@@ -948,9 +948,15 @@ delete(p); %deletes serial variable
 ```
 ### MATLAB Plots
 ### MSP430F5529
+
 ![alt text](MATLAB/MSP430F5529/photoresister_matlab5529.png "photoresister_matlab5529 MATLAB")
+
+This is a plot of a flashlight changing distance from a sensor over a period of three seconds.
+
 ### MSP430G2553
 ![alt text](MATLAB/MSP430G2553/matlab_photoresistor.png "photoresister_matlab MATLAB")
+
+This is a plot of a flashlight changing distance from a sensor over a period of three seconds.
 
 ## RGB and MATLAB MSP430F5529
 For this part, the MSP430F5529 would use the ADC for the photoresistor to convert the analog signal to a digital one. 
@@ -1168,3 +1174,5 @@ delete(p); %deletes serial variable
 ```
 ### Combined MATLAB,RGB Plot
 ![alt text](CombinedMATLABRGB/MSP430F5529/combined_matlab.png "Combined MATLAB RGB")
+
+This is a plot of a flashlight changing distance from a sensor over a period of three seconds.
