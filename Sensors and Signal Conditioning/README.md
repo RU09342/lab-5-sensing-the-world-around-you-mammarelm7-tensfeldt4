@@ -131,6 +131,7 @@ Left:Phototransistor Circuit, Middle:Photodiode Circuit, Right: Photoresistor Ci
 
 ## Photoresistor Circuit
 ![alt text](images/photoresistor.png "Photoresistor")
+
 This circuit is just the photoresistor and a current limiting 1k resistor.
 This sensor works fine without any amplification.
 
