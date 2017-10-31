@@ -15,7 +15,7 @@ Utilizing the built in ADC for each board, analog values from sensors were conve
 Then the digital values were transmitted over UART whenever the character 'A' was received by the MSP430.
 MATLAB would take three of these values over a period of three seconds and create a plot of them.
 
-## MSP430F5529 Code
+### MSP430F5529 Code
 
 ```c
 /*
@@ -142,7 +142,7 @@ __interrupt void USCI_A0_ISR(void)
 
 ```
 
-## MSP430G2553 Code
+### MSP430G2553 Code
 
 ```c
 /*
@@ -269,7 +269,7 @@ void __attribute__ ((interrupt(USCIAB0RX_VECTOR))) USCI0RX_ISR (void)
 
 ```
 
-## MSP430F5529, MSP430G2553 MATLAB Code
+### MSP430F5529, MSP430G2553 MATLAB Code
 
 ```c
 %Receive Serial Sensor 
@@ -327,7 +327,7 @@ delete(p); %deletes serial variable
 
 
 ```
-## MATLAB Plots
+### MATLAB Plots
 ### MSP430F5529
 ![alt text](MATLAB/MSP430F5529/photoresister_matlab5529.png "photoresister_matlab5529 MATLAB")
 ### MSP430G2553
@@ -338,7 +338,7 @@ For this part, the MSP430F5529 would use the ADC for the photoresistor to conver
 Based on this value, PWM was used to change the brightness of the red rgb.
 It would simultaneously transmit the current value of the photoresistor over UART to display on a MATLAB plot over a period of three seconds.
  
-## MSP430F5529 RGB and UART Code
+### MSP430F5529 RGB and UART Code
 
 ```c
 /*
@@ -489,7 +489,7 @@ __interrupt void USCI_A0_ISR(void)
 
 ```
 
-## MSP430F5529 MATLAB Code
+### MSP430F5529 MATLAB Code
 
 ```c
 %Receive Serial Sensor MSP430F5529
@@ -547,5 +547,5 @@ delete(p); %deletes serial variable
 
 
 ```
-## Combined MATLAB,RGB Plot
+### Combined MATLAB,RGB Plot
 ![alt text](CombinedMATLABRGB/MSP430F5529/combined_matlab.png "Combined MATLAB RGB")
