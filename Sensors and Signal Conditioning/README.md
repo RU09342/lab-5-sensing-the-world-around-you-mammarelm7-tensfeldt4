@@ -127,6 +127,7 @@ void __attribute__ ((interrupt(USCIAB0RX_VECTOR))) USCI0RX_ISR (void)
 
 ## Breadboard
 ![alt text](images/breadboard.JPG "breadboard")
+
 Left:Phototransistor Circuit, Middle:Photodiode Circuit, Right: Photoresistor Circuit
 
 ## Photoresistor Circuit
@@ -137,12 +138,14 @@ This sensor works fine without any amplification.
 
 ## Photoresistor Serial
 ![alt text](images/photoresistorSerial.png "PhotoresistorSerial")
+
 This is the serial as a flashlight is moved closer and farther away from the sensor.
 94 is the ambient without a light and increases when the flashlight is pointed on it.
 It decreases when the light is reduced.
 
 ## Photodiode Circuit
 ![alt text](images/photodiode.png "Photodiode")
+
 This circuit requires an inverting op amp with negative feedback in order to work.
 The gain of the circuit is directly proportional to the feedback resistor R4 and is characterized by the 
 function Vo/Vin = -Rf/Rin where Rin is represented by the 0.7 voltage drop across the photodiode.
@@ -151,12 +154,14 @@ it was found that any value over 300k created enough amplification for this devi
 
 ## Photodiode Serial
 ![alt text](images/photodiodeSerial.png "PhotodiodeSerial")
+
 This is the serial as a flashlight is moved closer and farther away from the sensor. 
 This sensor is different from the photoresistor as it is more directional and represents ambient light as 0.
 As the flashlight gets closer, the value increases up to 22.
 
 ## Phototransistor Circuit
 ![alt text](images/phototransistor.png "Phototransistor")
+
 This circuit consists of a phototransistor with a 2k current limiting resistor hooked up from the emitter to ground,
 since it is a NPN device. The base is controlled by the amount of light that is sensed. Once it 
 reaches a threshold, current will flow from the collector to the emitter. This circuit requires 
@@ -171,6 +176,7 @@ stage that inverts the signal back. However, this third stage did not work in pr
 
 ## Phototransistor Serial
 ![alt text](images/phototransistorSerial.png "PhototransistorSerial")
+
 This is the serial as a flashlight is moved closer and farther away from the sensor. 
 This sensor is different from the photoresistor as it is more directional and represents ambient light as 0.
 As the flashlight gets closer, the value increases up to 22.
