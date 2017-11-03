@@ -4,7 +4,7 @@ Matt Mammarelli
 ECE 09342-2
 */
 //MSP430FR6989
-//Displays one channel ADC
+//Displays value from one channel ADC, ideal for photoresistor
 
 #include "msp430.h"
 #include <LCDDriver.h>
@@ -13,18 +13,16 @@ ECE 09342-2
 void LCDInit();
 char convertToChar(int);
 
-int adc_value = 0;
-int test = 5;
-int s = 4125;
-int arrInt[3];
-int count=0;
-int firstDigit = 0;
-char firstDigitChar;
+int adc_value = 0; //will contain contents from ADC12MEM0
+int arrInt[3]; //will contain digits of adc_value
+int count=0; //used as index for arrInt
+
 
 int main(void)
 {
     WDTCTL = WDTPW | WDTHOLD;               // Stop WDT
 
+    //initialize lcd
     LCDInit();
     showChar('0',0);
     showChar('0',1);
@@ -54,7 +52,7 @@ int main(void)
 
 
 
-
+    //adc
     while (1)
     {
         __delay_cycles(5000);
@@ -94,18 +92,19 @@ void __attribute__ ((interrupt(ADC12_VECTOR))) ADC12_ISR (void)
 
                 adc_value = ADC12MEM0/100;
 
+                //iterates through 3 digit adc_value and puts each digit into arrInt in reverse order
                 do{
-                                        arrInt[count]=(adc_value%10);
-                                        adc_value/=10;
-                                        count++;
-                                    }
-                                    while(adc_value>0);
+                     arrInt[count]=(adc_value%10);
+                     adc_value/=10;
+                     count++;
+                }
+                while(adc_value>0);
 
 
-
-                                    showChar(convertToChar(arrInt[2]), 1);
-                                    showChar(convertToChar(arrInt[1]), 2);
-                                    showChar(convertToChar(arrInt[0]), 3);
+                //prints out characters to lcd screen
+                showChar(convertToChar(arrInt[2]), 1);
+                showChar(convertToChar(arrInt[1]), 2);
+                showChar(convertToChar(arrInt[0]), 3);
 
 
 
@@ -149,7 +148,7 @@ void __attribute__ ((interrupt(ADC12_VECTOR))) ADC12_ISR (void)
     }
 }
 
-
+//inits lcd
 void LCDInit()
 {
     PJSEL0 = BIT4 | BIT5;                   // For LFXT
@@ -190,6 +189,7 @@ void LCDInit()
     LCDCCTL0 |= LCDON;
 }
 
+//converts a passed integer 0-9 to the corresponding characters 0-9
 char convertToChar(int digit){
     char digitChar;
 
