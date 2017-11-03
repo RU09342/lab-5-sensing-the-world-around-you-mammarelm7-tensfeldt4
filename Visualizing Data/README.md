@@ -378,12 +378,12 @@ This board would use a built in ADC to convert an analog sensor value to a digit
 Then this value would be converted into a series of characters and displayed on the on board LCD Screen utilizing the LCDDriver.c and LCDDriver.h files.
 
 ### MSP430FR6989 Light Off
-![alt text](LCDDriver/lcd_light_off "LightOff")
+![alt text](LCDDriver/lcd_light_off.JPG "LightOff")
 
 Prints out 777 for no direct light.
 
 ### MSP430FR6989 Light On
-![alt text](LCDDriver/lcd_light_on "LightOn")
+![alt text](LCDDriver/lcd_light_on.JPG "LightOn")
 
 Prints out 040 for direct light.
 
