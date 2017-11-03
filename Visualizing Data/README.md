@@ -374,8 +374,10 @@ void __attribute__ ((interrupt(ADC12_B_VECTOR))) ADC12_ISR (void)
 
 
 ## LCD Display MSP430FR6989
-This board would use a built in ADC to convert an analog sensor value to a digital value.
-Then this value would be converted into a series of characters and displayed on the on board LCD Screen utilizing the LCDDriver.c and LCDDriver.h files.
+This board uses a built in ADC to convert an analog sensor value to a digital value.
+This digital value is stored in adc_value. Then the 3 digit integer in adc_value is split into 3 separate digits and put into the array arrInt in reverse order.
+The convertToChar function is used to convert integer digits 0-9 to character digits 0-9 that can be easily displayed on an Lcd.
+The function showChar is utilized to print out the array digits to the screen.
 
 ### MSP430FR6989 Light Off
 ![alt text](LCDDriver/lcd_light_off.JPG "LightOff")
