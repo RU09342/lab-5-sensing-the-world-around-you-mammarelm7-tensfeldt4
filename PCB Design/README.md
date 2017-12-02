@@ -15,6 +15,8 @@ All traces were modeled at 13 mil thickness which is within PCBWAY limitations.
 The difference in space betwen the headers on each side of the board is 0.6 inches so that the board will fit on a breadboard across the center line.
 The pattern for the TSSOP_20 was compared to the pattern at the end of the MSP430FR2311 datasheet to ensure the IC would fit. 
 
+![alt text](pcbPic.png "schemPic")
+
 ## Bill of Materials
 
 | RefDes | Value    | Name                  | Quantity  |
