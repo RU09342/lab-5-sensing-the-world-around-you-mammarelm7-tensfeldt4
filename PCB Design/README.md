@@ -7,7 +7,7 @@ The 100nF bypass capacitor will send low level AC noise to ground.
 The 10uF bulk capacitor will regulate the voltage provided to the processor so that when it dips, the capacitor will discharge and level the voltage.
 Reset circuitry was also added to this schematic. The reset circuitry consists of a 1nf capacitor going to ground to ensure debouncing and a 47k resistor used as a pull up resistor. A TSSOP_20 was chosen to model the msp since it has 10 pins on each side. 
 
-![alt text](schemPic "schemPic")
+![alt text](schemPic.png "schemPic")
 
 ## PCB Design
 The board was modeled as 2 sided with an internal ground plane and has the dimensions of .8 inches by 1.45 inches in height. 
